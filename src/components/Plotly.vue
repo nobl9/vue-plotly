@@ -35,7 +35,9 @@ export default {
     };
   },
   mounted() {
-    Plotly.newPlot(this.$el, this.data, this.innerLayout, this.options);
+    Plotly.newPlot(this.$el, this.data, this.innerLayout, this.options).catch(e => {
+      if (this.isPlotNotPurged) throw e; // skip throwing errors on purged plot
+    });
     events.forEach(evt => {
       this.$el.on(evt.completeName, evt.handler(this));
     });
@@ -71,6 +73,9 @@ export default {
         responsive: false,
         ...optionsFromAttrs
       };
+    },
+    isPlotNotPurged() {
+      return !!this.$el && this.$el.childNodes.length > 0;
     }
   },
   beforeDestroy() {
@@ -80,7 +85,9 @@ export default {
   methods: {
     ...methods,
     onResize() {
-      Plotly.Plots.resize(this.$el);
+      if (this.isPlotNotPurged) {
+        Plotly.Plots.resize(this.$el);
+      }
     },
     schedule(context) {
       const { scheduled } = this;
