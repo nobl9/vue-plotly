@@ -143,6 +143,19 @@ describe("Plotly.vue", () => {
     expect(plotlyjs.Plots.resize).toHaveBeenCalledWith(vm.$el);
   });
 
+  it("don't call plotly resize when resized on purged plot", () => {
+    const {
+      mock: {
+        calls: [call]
+      }
+    } = resize.inserted;
+    const { value: callBackResize } = call[1];
+    plotlyjs.purge(vm.$el);
+    callBackResize();
+
+    expect(plotlyjs.Plots.resize).not.toHaveBeenCalled();
+  });
+
   test.each(events)("listens to plotly event %s and transform it in a vue event", evt => {
     const evtName = evt.toLowerCase();
     const {
@@ -385,27 +398,27 @@ describe("Plotly.vue", () => {
     });
   });
 
-  // describe("when destroyed", () => {
-  //   beforeEach(() => {
-  //     wrapper.destroy();
-  //   });
+  describe("when destroyed", () => {
+    beforeEach(() => {
+      wrapper.destroy();
+    });
 
-  //   it("calls plotly purge", () => {
-  //     expect(plotlyjs.purge).toHaveBeenCalledWith(vm.$el);
-  //   });
+    it("calls plotly purge", () => {
+      expect(plotlyjs.purge).toHaveBeenCalledWith(vm.$el);
+    });
 
-  //   test.each(events)("unlistens to plotly event %s", evtName => {
-  //     const { removeAllListeners } = vm.$el;
-  //     expect(removeAllListeners).toHaveBeenCalledWith(`plotly_${evtName.toLowerCase()}`);
-  //   });
+    test.each(events)("unlistens to plotly event %s", evtName => {
+      const { removeAllListeners } = vm.$el;
+      expect(removeAllListeners).toHaveBeenCalledWith(`plotly_${evtName.toLowerCase()}`);
+    });
 
-  //   it(`unlistens to all the ${events.length} plotly events`, () => {
-  //     const {
-  //       removeAllListeners: {
-  //         mock: { calls }
-  //       }
-  //     } = vm.$el;
-  //     expect(calls.length).toBe(events.length);
-  //   });
-  // });
+    it(`unlistens to all the ${events.length} plotly events`, () => {
+      const {
+        removeAllListeners: {
+          mock: { calls }
+        }
+      } = vm.$el;
+      expect(calls.length).toBe(events.length);
+    });
+  });
 });
