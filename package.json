@@ -1,7 +1,11 @@
 {
   "name": "vue-plotly",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/nobl9"
+  },
+  "repository": "git://github.com/nobl9/vue-plotly",
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.js --open",
     "build": "vue-cli-service build --name vue-plotly --entry ./src/index.js --target lib",
