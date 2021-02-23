@@ -398,6 +398,17 @@ describe("Plotly.vue", () => {
     });
   });
 
+  describe("isPlotNotPurged", () => {
+    it("should be true for correctly mounted plot", () => {
+      expect(vm.isPlotNotPurged).toBe(true);
+    });
+
+    it(`should be false for correctly purged plot`, () => {
+      plotlyjs.purge(vm.$el);
+      expect(vm.isPlotNotPurged).toBe(false);
+    });
+  });
+
   describe("when destroyed", () => {
     beforeEach(() => {
       wrapper.destroy();
