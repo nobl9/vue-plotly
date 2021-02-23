@@ -1,7 +1,13 @@
-
 <p align="center"><img width="140"src="https://raw.githubusercontent.com/David-Desmaisons/vue-plotly/master/example/assets/logo.png"></p>
 
+# Nobl9 Devs:
+
+<b>Remember to build and publish new dist</b>
+
 # vue-plotly
+
+Package source links:
+
 [![GitHub open issues](https://img.shields.io/github/issues/David-Desmaisons/vue-plotly.svg)](https://github.com/David-Desmaisons/vue-plotly/issues)
 [![CircleCI](https://circleci.com/gh/David-Desmaisons/vue-plotly.svg?style=shield)](https://circleci.com/gh/David-Desmaisons/vue-plotly)
 [![codecov](https://codecov.io/gh/David-Desmaisons/vue-plotly/branch/master/graph/badge.svg)](https://codecov.io/gh/David-Desmaisons/vue-plotly)
@@ -22,44 +28,50 @@
 ![example](./example/assets/demo.gif)
 
 ## Live example
+
 https://david-desmaisons.github.io/vue-plotly/
 
 ## Usage
+
 ```HTML
 <Plotly :data="data" :layout="layout" :display-mode-bar="false"></Plotly>
 ```
+
 ```javascript
-import { Plotly } from 'vue-plotly'
+import { Plotly } from "vue-plotly";
 
 export default {
   components: {
     Plotly
   },
-  data:{
-    data:[{
-      x: [1,2,3,4],
-      y: [10,15,13,17],
-      type:"scatter"
-    }],
-    layout:{
+  data: {
+    data: [
+      {
+        x: [1, 2, 3, 4],
+        y: [10, 15, 13, 17],
+        type: "scatter"
+      }
+    ],
+    layout: {
       title: "My graph"
     }
   }
-}
+};
 ```
+
 ## API
 
-#### Props 
+#### Props
 
-- `data` ***Array*** (*optional*) 
+- `data` **_Array_** (_optional_)
 
   [Data](https://plot.ly/javascript/reference/) to be displayed
 
-- `layout` ***Object*** (*optional*) 
+- `layout` **_Object_** (_optional_)
 
   Graphic [layout](https://plot.ly/javascript/reference/#layout)
 
-- `id` ***String*** (*optional*) 
+- `id` **_String_** (_optional_)
 
   Id of the root HTML element of the component.
 
@@ -68,40 +80,47 @@ export default {
   Plotly component implements the [transparent wrapper pattern](https://zendev.com/2018/05/31/transparent-wrapper-components-in-vue.html):<br>All other props will be passed as plotly graphic [option](https://plot.ly/javascript/configuration-options/).
 
 ## Installation
+
 ```
 npm install vue-plotly
 ```
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
 ### Run your tests
+
 ```
 npm run test
 ```
 
 ### Lints and fixes files
+
 ```
 npm run lint
 ```
 
 ### Run your unit tests
+
 ```
 npm run test:unit
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -1,7 +1,7 @@
-import { shallowMount } from "@vue/test-utils";
 import Plotly from "@/components/Plotly.vue";
 import plotlyjs from "plotly.js";
 import resize from "vue-resize-directive";
+import { shallowMount } from "@vue/test-utils";
 jest.mock("vue-resize-directive");
 
 let wrapper;
@@ -141,6 +141,19 @@ describe("Plotly.vue", () => {
     callBackResize();
 
     expect(plotlyjs.Plots.resize).toHaveBeenCalledWith(vm.$el);
+  });
+
+  it("don't call plotly resize when resized on purged plot", () => {
+    const {
+      mock: {
+        calls: [call]
+      }
+    } = resize.inserted;
+    const { value: callBackResize } = call[1];
+    plotlyjs.purge(vm.$el);
+    callBackResize();
+
+    expect(plotlyjs.Plots.resize).not.toHaveBeenCalled();
   });
 
   test.each(events)("listens to plotly event %s and transform it in a vue event", evt => {
@@ -382,6 +395,17 @@ describe("Plotly.vue", () => {
         format: "png"
       });
       expect(call[1].filename).not.toBeUndefined();
+    });
+  });
+
+  describe("isPlotNotPurged", () => {
+    it("should be true for correctly mounted plot", () => {
+      expect(vm.isPlotNotPurged).toBe(true);
+    });
+
+    it(`should be false for correctly purged plot`, () => {
+      plotlyjs.purge(vm.$el);
+      expect(vm.isPlotNotPurged).toBe(false);
     });
   });
 
