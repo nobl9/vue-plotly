@@ -1,9 +1,10 @@
 {
   "name": "@nobl9/vue-plotly",
-  "version": "1.1.1",
+  "version": "1.1.4",
   "private": false,
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
   },
   "repository": "git://github.com/nobl9/vue-plotly",
   "scripts": {
